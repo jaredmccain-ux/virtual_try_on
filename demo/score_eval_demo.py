@@ -10,6 +10,7 @@ Usage (called by app.py):
     result = evaluate(person_img, garment_img, result_img, instruction)
 """
 
+
 import base64
 import io
 import json

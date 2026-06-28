@@ -16,6 +16,7 @@ import threading
 import time
 from io import BytesIO
 
+
 import gradio as gr
 import multiprocessing as mp
 import numpy as np
