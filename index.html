@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Virtual Try-On Style Editor</title>
+  <meta name="description" content="Instruction-guided virtual try-on style editing using multi-model comparison.">
+
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans:wght@400;500;600;700&family=Castoro:ital@0;1&display=swap">
+
+  <!-- Bulma CSS (same as nerfies) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+
+  <style>
+    body {
+      font-family: 'Noto Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #4a4a4a;
+      line-height: 1.6;
+    }
+
+    /* ── Hero ── */
+    .hero { padding: 3rem 1rem 2rem; }
+    .hero h1 {
+      font-family: 'Inter', 'Google Sans', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      letter-spacing: -0.5px;
+    }
+    .publication-subtitle {
+      font-size: 1rem;
+      color: #666;
+      margin-top: 0.5rem;
+    }
+    .publication-links {
+      margin-top: 1.5rem;
+    }
+    .link-block {
+      display: inline-block;
+      margin: 0.25rem;
+    }
+    .link-block .button {
+      background-color: #363636;
+      border: none;
+      border-radius: 290486px;
+      color: #fff;
+      padding: 0.5em 1.3em;
+      font-size: 0.9rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      transition: background-color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4em;
+    }
+    .link-block .button:hover {
+      background-color: #2a2a2a;
+      color: #fff;
+    }
+    .link-block .button svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    /* ── Section ── */
+    section.section { padding: 2rem 1.5rem; }
+    .has-text-centered { text-align: center; }
+
+    /* ── Demo iframe ── */
+    .demo-container {
+      position: relative;
+      width: 100%;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #fff;
+    }
+    .demo-container iframe {
+      width: 100%;
+      height: 900px;
+      border: none;
+      display: block;
+    }
+
+    /* ── Abstract ── */
+    .abstract {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+    .abstract h2 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #363636;
+      margin-bottom: 0.75rem;
+    }
+    .abstract p {
+      color: #4a4a4a;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* ── Model Info ── */
+    .model-table {
+      max-width: 800px;
+      margin: 1rem auto;
+    }
+    .model-table table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    .model-table th, .model-table td {
+      padding: 0.5rem 0.75rem;
+      border: 1px solid #dbdbdb;
+      text-align: left;
+    }
+    .model-table th {
+      background-color: #f5f5f5;
+      color: #363636;
+      font-weight: 600;
+    }
+
+    /* ── Citation ── */
+    .citation-box {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #f5f5f5;
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      font-family: monospace;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: #4a4a4a;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    /* ── Footer ── */
+    .footer-bar {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: #999;
+      font-size: 0.85rem;
+      border-top: 1px solid #eee;
+    }
+    .footer-bar strong { color: #666; }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 1.6rem; }
+      .demo-container iframe { height: 600px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════════ Hero ════════════════════ -->
+  <section class="hero">
+    <div class="container is-max-desktop has-text-centered">
+      <h1>Virtual Try-On Style Editor</h1>
+      <p class="publication-subtitle">
+        Instruction-Guided Image Editing with Multi-Model Comparison<br>
+        Pattern Recognition Course Project · HUST 2026
+      </p>
+
+      <div class="publication-links">
+        <span class="link-block">
+          <a class="button" href="./report.pdf" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/><path d="M8 12h8v1.5H8zM8 15h5v1.5H8z"/></svg>
+            <span>Report</span>
+          </a>
+        </span>
+        <span class="link-block">
+          <a class="button" href="https://github.com/jaredmccain-ux/virtual_try_on" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0 1 12 6.8c.85.004 1.71.115 2.51.34 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 22 12 10 10 0 0 0 12 2z"/></svg>
+            <span>Code</span>
+          </a>
+        </span>
+        <span class="link-block">
+          <a class="button" href="#demo">
+            <svg viewBox="0 0 24 24"><path d="M5 3l14 9-14 9V3z"/></svg>
+            <span>Demo</span>
+          </a>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════ Abstract ════════════════════ -->
+  <section class="section">
+    <div class="abstract">
+      <h2>Abstract</h2>
+      <p>
+        This project compares five instruction-guided image editing models for virtual
+        try-on style editing: <strong>PromptDresser</strong>,
+        <strong>Qwen-Image-Edit</strong>,
+        <strong>FLUX.1-Kontext-dev</strong>,
+        <strong>FireRed-Image-Edit</strong>, and
+        <strong>DreamOmni2</strong>.
+        Users upload a person image and a garment image, provide a text instruction
+        describing the desired style change, and the system generates edited results
+        for side-by-side comparison across models.
+      </p>
+    </div>
+  </section>
+
+  <!-- ════════════════════ Model Info ════════════════════ -->
+  <section class="section" style="background: #f5f5f5;">
+    <div class="container is-max-desktop">
+      <h2 class="title is-4 has-text-centered">Model Comparison</h2>
+      <div class="model-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Paradigm</th>
+              <th>Key Feature</th>
+              <th>Parameters</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong><a href="https://arxiv.org/pdf/2412.16978" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">PromptDresser</a></strong></td>
+              <td>Diffusion + Prompt Enhancement</td>
+              <td>Generative textual prompts with prompt-aware mask for controllable virtual try-on</td>
+              <td>Not disclosed (diffusion-based)</td>
+            </tr>
+            <tr>
+              <td><strong><a href="https://arxiv.org/pdf/2508.02324" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">Qwen-Image-Edit</a></strong></td>
+              <td>MMDiT Dual-Decoder Diffusion</td>
+              <td>Semantic + appearance dual-mode editing; precise Chinese/English text rendering</td>
+              <td><strong>~27B</strong> (MMDiT 20B + Qwen2.5-VL 7B)</td>
+            </tr>
+            <tr>
+              <td><strong><a href="https://arxiv.org/pdf/2506.15742" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">FLUX.1-Kontext-dev</a></strong></td>
+              <td>Flow Matching Context Transformer</td>
+              <td>Flow matching with in-context generation; strong character consistency &amp; local editing</td>
+              <td><strong>12B</strong></td>
+            </tr>
+            <tr>
+              <td><strong><a href="https://arxiv.org/pdf/2602.13344" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">FireRed-Image-Edit</a></strong></td>
+              <td>MMDiT High-Fidelity Editing</td>
+              <td>High-fidelity editing with identity preservation, multi-element fusion &amp; old photo restoration</td>
+              <td><strong>~28B</strong> (Transformer 20B + Text Encoder ~8B)</td>
+            </tr>
+            <tr>
+              <td><strong><a href="https://arxiv.org/pdf/2510.06679" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">DreamOmni2</a></strong></td>
+              <td>MLLM Instruction + LoRA Tuning</td>
+              <td>Multimodal instruction-driven unified editing &amp; generation with multi-image input</td>
+              <td>FLUX.1 Kontext + Qwen2.5-VL <strong>7B</strong> LoRA</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════ Demo ════════════════════ -->
+  <section class="section" id="demo">
+    <div class="container is-max-desktop has-text-centered">
+      <h2 class="title is-4">Live Demo</h2>
+      <p style="color: #777; margin-bottom: 1.5rem;">
+        Upload a person image and a garment image, then enter an editing instruction.
+        Select different models in each slot for side-by-side comparison.
+      </p>
+      <div class="demo-container">
+        <iframe src="http://127.0.0.1:7860" allow="camera;microphone"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════ Citation ════════════════════ -->
+  <section class="section" style="background: #f5f5f5;">
+    <div class="container is-max-desktop">
+      <h2 class="title is-4 has-text-centered">Citation</h2>
+      <div class="citation-box">@inproceedings{kim2025promptdresser,
+  title     = {PromptDresser: Improving the Quality and Controllability of Virtual Try-On via Generative Textual Prompt and Prompt-Aware Mask},
+  author    = {Kim, Jeongho and Jin, Hyeongjin and Park, Sungoh and others},
+  booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
+  pages     = {16026--16036},
+  year      = {2025}
+}
+
+@article{labs2025flux,
+  title   = {FLUX.1 Kontext: Flow Matching for In-Context Image Generation and Editing in Latent Space},
+  author  = {Black Forest Labs and Bhatt, Saurav and Batifol, Stephen and Blattmann, Andreas and others},
+  journal = {arXiv preprint arXiv:2506.15742},
+  year    = {2025}
+}
+
+@article{wu2025qwen,
+  title   = {Qwen-Image Technical Report},
+  author  = {Wu, Chen and Li, Jialiang and Zhou, Jiawei and others},
+  journal = {arXiv preprint arXiv:2508.02324},
+  year    = {2025}
+}
+
+@article{firered2025,
+  title   = {FireRed-Image-Edit-1.0 Technical Report},
+  author  = {{Super Intelligence Team, Xiaohongshu Inc}},
+  journal = {arXiv preprint arXiv:2602.13344},
+  year    = {2025}
+}
+
+@article{xia2025dreamomni2,
+  title   = {DreamOmni2: Multimodal Instruction-based Editing and Generation},
+  author  = {Xia, Bin and Peng, Bohao and Zhang, Yuechen and Huang, Junjia and Liu, Jiyang and Li, Jingyao and Tan, Haoru and Wu, Sitong and Wang, Chengyao and Wang, Yitong and Wu, Xinglong and Yu, Bei and Jia, Jiaya},
+  journal = {arXiv preprint arXiv:2510.06679},
+  year    = {2025}
+}</div>
+    </div>
+  </section>
+
+  <!-- ════════════════════ Footer ════════════════════ -->
+  <div class="footer-bar">
+    <strong>Virtual Try-On Style Editor</strong> &middot;
+    Pattern Recognition Course Project &middot; HUST 2026<br>
+    Advisor: Lu Hao &middot; Built with Gradio, Diffusers &amp; Bulma
+  </div>
+
+</body>
+</html>
