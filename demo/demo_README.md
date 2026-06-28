@@ -22,4 +22,4 @@ python app.py --port 7860
 
 服务器上score_eval_demo.py中需要填写apikey
 
-错误：gpu1加载不了omnigen2模型
+错误：gpu1加载不了omnigen2模型,
