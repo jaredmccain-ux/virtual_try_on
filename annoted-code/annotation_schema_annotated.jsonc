@@ -1,0 +1,434 @@
+// =============================================================================
+// 虚拟试衣 + 属性编辑 · JSON 字段说明（精炼版）
+// 文件格式: JSONC（JSON with Comments）
+// 对齐产物: constrcut_instruction/annotations_*_with_edit.jsonl
+//
+// 字段来源:
+//   [模型] = VLM 标注
+//   [脚本] = 流水线生成
+//   [人工] = 审核填写
+//
+// V2 区域规则:
+//   - 上装: 无 pants_cuff_state / hem_length / hem_shape
+//   - 下装: 无 layering_structure；wearing_style 仅 pants_cuff_state
+//   - 连体: 保留完整上下结构字段
+//   - is_present=false 的区域: 仅 is_present + category(null)
+//   - garment 平铺图: 通常无 wearing_style / fit / embellishment（缺失时脚本推断）
+// 无效值: null | not_applicable | not_visible
+// 已删除字段: visibility.* | occlusion_level（不再使用）
+// =============================================================================
+
+{
+  // ---------------------------------------------------------------------------
+  // 一、样本元信息
+  // ---------------------------------------------------------------------------
+  "sample_id": "upper_body_048392",
+  "source_sample_id": "upper_body_048392",
+  "pair_mode": "paired",
+  "scene_id": "A",
+  "person_upper_state": "U0",
+  "garment_class": "G0",
+  "person_image": "Datasets/eval_firsttest/person/048392_0.jpg",
+  "garment_image": "Datasets/eval_firsttest/garment/048392_1.jpg",
+  "provider": "rivo",
+  "model_id": "gpt-5.4",
+  "model": "gpt-5.4",
+  "raw_output_file": ".../model_rawsay/rivo__gpt-5.4.txt",
+  "status": "ok",
+  "elapsed_seconds": 10.55,
+  "reviewed_at": "2026-06-20T08:30:57.085Z",
+  "review_verdict": "ok",
+  "supplement_meta": {
+    "supplemented_at": "2026-06-22T07:30:54.689767Z",
+    "supplement_model": "gpt-5.4",
+    "supplement_provider": "rivo",
+    "supplement_fields": [
+      "garment.gender",
+      "person.appearance.embellishment",
+      "person.layering_structure.have_inner"
+    ]
+  },
+  "postprocess_meta": {
+    "postprocessed_at": "2026-06-22T09:57:01.980792Z",
+    "postprocess_script": "postprocess_annotations.py"
+  },
+
+  // unpair 专有（paired 无以下三字段）
+  "person_anchor_id": "upper_body_048392",
+  "garment_donor_id": "lower_body_050200",
+  "paired_baseline_id": "upper_body_048392",
+
+  // ---------------------------------------------------------------------------
+  // 二、annotation · 原始标注（与 reviewed/postprocessed 输入一致）
+  // ---------------------------------------------------------------------------
+  "annotation": {
+    "person_image": {
+      "role": "female",
+      "wearing_type": "two_pieces",
+      "person_annotation": {
+        "upper_body_garment": {
+          "is_present": true,
+          "category": "t-shirt",
+          "wearing_style": {
+            "tucking_style": "fully_tucked_in",
+            "sleeve_state": "sleeves_down"
+          },
+          "fit_silhouette": { "fit": "regular" },
+          "local_structure": {
+            "neckline": "round",
+            "sleeve_length": "short_sleeve",
+            "sleeve_type": "regular",
+            "collar_type": "not_applicable"
+          },
+          "appearance": {
+            "color": "white",
+            "pattern": "solid",
+            "material_texture": "knit",
+            "embellishment": "none"
+          },
+          "layering_structure": {
+            "outer_closure": "not_applicable",
+            "is_outerwear": false,
+            "have_inner": "not_applicable"
+          }
+        },
+        "lower_body_garment": {
+          "is_present": true,
+          "category": "pants",
+          "wearing_style": { "pants_cuff_state": "normal_pants_cuff" },
+          "fit_silhouette": { "fit": "regular" },
+          "local_structure": {
+            "hem_length": "full-length",
+            "hem_shape": "straight_hem"
+          },
+          "appearance": {
+            "color": "brown",
+            "pattern": "solid",
+            "material_texture": "wool",
+            "embellishment": "pleat"
+          }
+        },
+        "whole_body_garment": { "is_present": false, "category": null }
+      }
+    },
+    "garment_image": {
+      "garment_annotation": {
+        "gender": "female",
+        "upper_body_garment": {
+          "category": "t-shirt",
+          "local_structure": {
+            "neckline": "round",
+            "sleeve_length": "short_sleeve",
+            "sleeve_type": "regular",
+            "collar_type": "not_applicable"
+          },
+          "appearance": {
+            "color": "white",
+            "pattern": "solid",
+            "material_texture": "knit"
+          },
+          "layering_structure": {
+            "outer_closure": "not_applicable",
+            "is_outerwear": false
+          }
+        },
+        "where_to_dress": "upper_body"
+      }
+    }
+  },
+
+  // ---------------------------------------------------------------------------
+  // 三、source_attributes / target_attributes
+  //     source = 人物编辑前快照（person_annotation 拷贝）
+  //     target = 试穿+编辑后期望状态
+  //       · active_region: 以 garment 平铺 baseline 为底，再应用 edit to 值
+  //       · 非 active_region: 与 source 相同（person 侧未改区域）
+  // ---------------------------------------------------------------------------
+  "source_attributes": {
+    "upper_body_garment": {
+      "is_present": true,
+      "category": "t-shirt",
+      "wearing_style": {
+        "tucking_style": "fully_tucked_in",
+        "sleeve_state": "sleeves_down"
+      },
+      "fit_silhouette": { "fit": "regular" },
+      "local_structure": {
+        "neckline": "round",
+        "sleeve_length": "short_sleeve",
+        "sleeve_type": "regular",
+        "collar_type": "not_applicable"
+      },
+      "appearance": {
+        "color": "white",
+        "pattern": "solid",
+        "material_texture": "knit",
+        "embellishment": "none"
+      },
+      "layering_structure": {
+        "outer_closure": "not_applicable",
+        "is_outerwear": false,
+        "have_inner": "not_applicable"
+      }
+    },
+    "lower_body_garment": {
+      "is_present": true,
+      "category": "pants",
+      "wearing_style": { "pants_cuff_state": "normal_pants_cuff" },
+      "fit_silhouette": { "fit": "regular" },
+      "local_structure": {
+        "hem_length": "full-length",
+        "hem_shape": "straight_hem"
+      },
+      "appearance": {
+        "color": "brown",
+        "pattern": "solid",
+        "material_texture": "wool",
+        "embellishment": "pleat"
+      }
+    },
+    "whole_body_garment": { "is_present": false, "category": null }
+  },
+
+  "target_attributes": {
+    "upper_body_garment": {
+      "is_present": true,
+      "category": "t-shirt",
+      "wearing_style": {
+        "tucking_style": "fully_tucked_in",
+        "sleeve_state": "sleeves_down"
+      },
+      "local_structure": {
+        "neckline": "round",
+        "sleeve_length": "short_sleeve",
+        "sleeve_type": "raglan"
+      },
+      "appearance": {
+        "color": "maroon",
+        "pattern": "solid",
+        "material_texture": "corduroy",
+        "embellishment": "none"
+      },
+      "layering_structure": { "is_outerwear": false }
+    },
+    "lower_body_garment": {
+      "is_present": true,
+      "category": "pants",
+      "wearing_style": { "pants_cuff_state": "normal_pants_cuff" },
+      "fit_silhouette": { "fit": "regular" },
+      "local_structure": {
+        "hem_length": "full-length",
+        "hem_shape": "straight_hem"
+      },
+      "appearance": {
+        "color": "brown",
+        "pattern": "solid",
+        "material_texture": "wool",
+        "embellishment": "pleat"
+      }
+    },
+    "whole_body_garment": { "is_present": false, "category": null }
+  },
+
+  // ---------------------------------------------------------------------------
+  // 四、active_region · 本次试穿/编辑作用区域
+  // ---------------------------------------------------------------------------
+  "active_region": "upper_body_garment",
+
+  // ---------------------------------------------------------------------------
+  // 五、edit_task
+  // ---------------------------------------------------------------------------
+  "edit_task": {
+    "edit_type_id": "E19",
+    "edit_type_label": "local_structure x1 + appearance x2",
+    "scene_id": "A",
+    "region": "upper_body_garment",
+    "edit_spec": {
+      "wearing_style": {},
+      "fit_silhouette": {},
+      "local_structure": {
+        "sleeve_type": { "from": "regular", "to": "raglan" }
+      },
+      "appearance": {
+        "material_texture": { "from": "knit", "to": "corduroy" },
+        "color": { "from": "white", "to": "maroon" }
+      },
+      "layering_structure": {}
+    },
+    "changes_by_dimension": {
+      "wearing_style": {},
+      "fit_silhouette": {},
+      "local_structure": {
+        "sleeve_type": { "from": "regular", "to": "raglan" }
+      },
+      "appearance": {
+        "material_texture": { "from": "knit", "to": "corduroy" },
+        "color": { "from": "white", "to": "maroon" }
+      },
+      "layering_structure": {}
+    },
+    "preserved_by_dimension": {
+      "person": ["identity", "face", "pose", "body_shape", "background", "lighting"],
+      "upper_body_garment": {
+        "wearing_style": {
+          "tucking_style": "fully_tucked_in",
+          "sleeve_state": "sleeves_down"
+        },
+        "local_structure": {
+          "neckline": "round",
+          "sleeve_length": "short_sleeve"
+        },
+        "appearance": {
+          "pattern": "solid",
+          "embellishment": "none"
+        }
+      }
+    }
+  },
+
+  // ---------------------------------------------------------------------------
+  // 六、instruction
+  //     instruction_en/zh 中 preserve 写「Keep xxx unchanged / 保持 xxx 不变」
+  //     JSON 内 preserved_by_dimension 仍存具体值（供结构化使用）
+  // ---------------------------------------------------------------------------
+  "instruction": {
+    "instruction_spec": {
+      "scene_id": "A",
+      "base_task": "A",
+      "edit_by_dimension": {
+        "wearing_style": {},
+        "fit_silhouette": {},
+        "local_structure": {
+          "sleeve_type": { "from": "regular", "to": "raglan" }
+        },
+        "appearance": {
+          "material_texture": { "from": "knit", "to": "corduroy" },
+          "color": { "from": "white", "to": "maroon" }
+        },
+        "layering_structure": {}
+      },
+      "preserve_by_dimension": {
+        "person": ["identity", "face", "pose", "body_shape", "background", "lighting"],
+        "upper_body_garment": {
+          "wearing_style": {
+            "tucking_style": "fully_tucked_in",
+            "sleeve_state": "sleeves_down"
+          },
+          "local_structure": {
+            "neckline": "round",
+            "sleeve_length": "short_sleeve"
+          },
+          "appearance": {
+            "pattern": "solid",
+            "embellishment": "none"
+          }
+        }
+      }
+    },
+    "instruction_en": "Replace the person's upper-body garment with the given garment image. [EDIT · local_structure] On the newly worn upper-body garment, Change the sleeve type from regular to raglan. [EDIT · appearance] On the newly worn upper-body garment, Change the material texture from knit to corduroy; change the color from white to maroon. [PRESERVE · person] Preserve identity, face, pose, body shape, background, and lighting. [PRESERVE · upper_body] Keep tucking style unchanged, sleeve state unchanged, neckline unchanged, sleeve length unchanged, pattern unchanged, embellishment unchanged.",
+    "instruction_zh": "将人物的上装替换为给定平铺图衣物。[编辑 · local_structure] 在新换上的上装上，将sleeve type从 regular 改为 raglan。[编辑 · appearance] 在新换上的上装上，将material texture从 knit 改为 corduroy；将color从 white 改为 maroon。[保留 · person] 保持身份、面部、姿态、体型、背景和光照不变。[保留 · upper_body] 保持 tucking style 不变、sleeve state 不变、neckline 不变、sleeve length 不变、pattern 不变、embellishment 不变。",
+    "template_version": "edit_instruction_v3_scene"
+  },
+
+  // ---------------------------------------------------------------------------
+  // 七、testset 扁平行（独立 JSONL: testset_paired.jsonl / testset_unpair.jsonl）
+  // ---------------------------------------------------------------------------
+  "_testset_row_example": {
+    "sample_id": "upper_body_048392",
+    "source_image_path": "Datasets/eval_firsttest/person/048392_0.jpg",
+    "garment_image_path": "Datasets/eval_firsttest/garment/048392_1.jpg",
+    "instruction_en": "Replace the person's upper-body garment with the given garment image. ...",
+    "edit_type_id": "E19",
+    "pair_mode": "paired"
+  },
+
+  // ---------------------------------------------------------------------------
+  // 八、unpair_scene_manifest（独立 JSONL: match-unpair/unpair_scene_manifest.jsonl）
+  // ---------------------------------------------------------------------------
+  "_unpair_scene_manifest_example": {
+    "sample_id": "unpair_lower_body_050192__garment_upper_body_048431",
+    "scene_id": "I2",
+    "pair_mode": "unpair",
+    "seed": 20260623,
+    "anchor_index": 67,
+    "donor_index": 39,
+    "person_anchor_id": "lower_body_050192",
+    "garment_donor_id": "upper_body_048431",
+    "person_upper_state": "U1",
+    "garment_class": "G0",
+    "anchor_where_to_dress": "lower_body",
+    "donor_where_to_dress": "upper_body",
+    "active_region": "upper_body_garment",
+    "cross_region": true
+  }
+}
+
+// =============================================================================
+// 字段含义速查（注释区，不参与 JSON 解析）
+// =============================================================================
+//
+// --- 顶层 ---
+// sample_id            [脚本] 全局样本 ID（paired=source_sample_id；unpair=unpair_xxx__garment_yyy）
+// source_sample_id     [脚本] paired 原始 ID；unpair 可无
+// pair_mode            [脚本] paired | unpair
+// scene_id             [脚本] A B C D E L1 L2 L3 I1 I2（F=无效，不会产出）
+// person_upper_state   [脚本] U0 | U1 | U2 | whole
+// garment_class        [脚本] G0 非外套 | G1 外套（C 场景 paired 强制显示 G0）
+// person_image         [脚本] 模特图路径
+// garment_image        [脚本] 衣物图路径
+// provider/model       [脚本] 标注来源
+// review_verdict       [人工] 审核结论
+// supplement_meta      [脚本] 补标记录（gender / embellishment / have_inner）
+// postprocess_meta     [脚本] 后处理记录
+// person_anchor_id     [脚本] unpair 人物 anchor ID
+// garment_donor_id     [脚本] unpair 衣物 donor ID
+// paired_baseline_id   [脚本] unpair 对应 anchor 的 paired baseline ID
+// active_region        [脚本] upper_body_garment | lower_body_garment | whole_body_garment
+//
+// --- annotation.person ---
+// role                 [模型] male | female
+// wearing_type         [模型] one_piece | two_pieces
+// is_present           [模型] 区域是否穿着
+// category             [模型] 品类
+// fit                  [模型] tight | regular | loose | oversized
+// tucking_style        [模型] untucked | fully_tucked_in | french_tucked | half_tuck
+// sleeve_state         [模型] sleeves_down | rolled_up_sleeves
+// pants_cuff_state     [模型] normal_pants_cuff | rolled_up_pants
+// neckline             [模型] round | v-neck | square_neck | turtleneck | off-shoulder | hood
+// sleeve_length        [模型] sleeveless | short_sleeve | 3/4_sleeve | long_sleeve
+// sleeve_type          [模型] regular | puff_sleeve | bell_sleeve | raglan
+// collar_type          [模型] lapel_collar | stand_collar | shirt_collar | not_applicable
+// hem_length           [模型] mini | knee-length | midi | maxi | full-length | cropped
+// hem_shape            [模型] straight_hem | asymmetric_hem | curved_hem | slit
+// color/pattern/...    [模型] 见 edit_value_enums.json
+// embellishment        [模型·补标] none | button_detail | pleat | ruffle | bow | lace_trim |
+//                               embroidery | sequin | fringe | distressed | zipper_detail | cutout
+// outer_closure        [模型] not_applicable | open | closed
+// is_outerwear         [模型] true | false
+// have_inner           [模型·补标] true | false | not_applicable（仅 person 上装为外套时有意义）
+// is_paired            [脚本] unpair 重建时标记哪块是 active_region
+//
+// --- annotation.garment ---
+// gender               [模型·补标] male | female
+// where_to_dress       [模型] upper_body | lower_body | whole_body
+//
+// --- edit / instruction ---
+// edit_type_id         [脚本] E01-E08, E09-E20（每套 target=10，共 200 条/套）
+// edit_spec            [脚本] 本条 edit（5 维度，含 from/to）
+// changes_by_dimension [脚本] 同 edit_spec
+// preserved_by_dimension [脚本] 需 preserve 的结构化值（JSON 存值；prompt 写「不变」）
+// instruction_spec     [脚本] scene_id + base_task + edit + preserve 结构化块
+// instruction_en/zh    [脚本] FireRed prompt（含 scene base + edit 指代前缀）
+// template_version     [脚本] edit_instruction_v3_scene
+//
+// --- 场景 base_task 含义 ---
+// A  换上装（U0 + G0）
+// B  换下装
+// C  换连体
+// D  上下装→换连体
+// E  连体上叠外套
+// L1 叠外套（保留内搭）
+// L2 换外套
+// L3 上装换成外套（不保留原内搭）
+// I1 只换内搭（保留外套）
+// I2 去外套，换上装

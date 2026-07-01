@@ -1,0 +1,96 @@
+{
+  "wearing_style": {
+    "tucking_style": [
+      "untucked",
+      "fully_tucked_in",
+      "half_tuck"
+    ],
+    "sleeve_state": ["sleeves_down", "rolled_up_sleeves"],
+    "pants_cuff_state": ["normal_pants_cuff", "rolled_up_pants"]
+  },
+  "fit_silhouette": {
+    "fit": ["tight", "regular", "loose", "oversized"]
+  },
+  "local_structure": {
+    "neckline": [
+      "round_neck",
+      "v-neck",
+      "turtleneck",
+      "off-shoulder",
+      "hood",
+      "not_applicable"
+    ],
+    "sleeve_length": ["sleeveless", "short_sleeve", "3/4_sleeve", "long_sleeve"],
+    "sleeve_type": ["regular", "puff_sleeve", "bell_sleeve", "raglan", "not_applicable"],
+    "collar_type": ["not_applicable", "shirt_collar", "lapel_collar", "stand_collar"],
+    "hem_length": ["mini", "knee-length", "midi", "maxi", "full-length", "cropped"],
+    "hem_shape": ["straight_hem", "asymmetric_hem", "curved_hem", "slit"]
+  },
+  "appearance": {
+    "color": [
+      "black",
+      "white",
+      "gray",
+      "red",
+      "pink",
+      "orange",
+      "yellow",
+      "green",
+      "blue",
+      "purple",
+      "brown",
+      "beige",
+      "navy",
+      "maroon",
+      "teal",
+      "olive",
+      "burgundy",
+      "khaki",
+      "multicolor"
+    ],
+    "pattern": [
+      "solid",
+      "stripe",
+      "plaid",
+      "floral",
+      "polka_dot",
+      "animal_print",
+      "geometric",
+      "graphic_print",
+      "jacquard",
+      "color_block"
+    ],
+    "material_texture": [
+      "cotton",
+      "silk",
+      "linen",
+      "denim",
+      "leather",
+      "knit",
+      "wool",
+      "chiffon",
+      "velvet",
+      "corduroy",
+      "lace",
+      "not_visible"
+    ],
+    "embellishment": [
+      "none",
+      "button_detail",
+      "pleat",
+      "ruffle",
+      "bow",
+      "lace_trim",
+      "embroidery",
+      "sequin",
+      "fringe",
+      "distressed",
+      "zipper_detail",
+      "cutout"
+    ]
+  },
+  "layering_structure": {
+    "is_outerwear": [true, false],
+    "outer_closure": ["open", "closed"]
+  }
+}

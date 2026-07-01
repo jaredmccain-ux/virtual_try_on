@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>虚拟试衣 · 编辑指令查看器</title>
+  <link rel="stylesheet" href="viewer.css" />
+  <!-- BUILD:inline-styles -->
+</head>
+<body>
+  <div id="setup-warning" class="warning-banner hidden"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <h1>编辑指令查看器</h1>
+      <p>paired / unpair · 图片 · 标注 · instruction</p>
+    </div>
+    <div class="stats" id="stats"></div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <label class="field">
+        <span>数据集</span>
+        <select id="filter-mode">
+          <option value="all">全部</option>
+          <option value="paired">paired</option>
+          <option value="unpair">unpair</option>
+        </select>
+      </label>
+
+      <label class="field">
+        <span>场景 scene</span>
+        <select id="filter-scene">
+          <option value="all">全部</option>
+        </select>
+      </label>
+
+      <label class="field">
+        <span>穿着类型</span>
+        <select id="filter-wearing-type">
+          <option value="all">全部</option>
+          <option value="one_piece">one_piece (连体)</option>
+          <option value="two_pieces">two_pieces (分体)</option>
+        </select>
+      </label>
+
+      <label class="field">
+        <span>编辑类型</span>
+        <select id="filter-edit">
+          <option value="all">全部</option>
+        </select>
+      </label>
+
+      <label class="field">
+        <span>搜索 sample_id</span>
+        <input id="filter-search" type="search" placeholder="例如 upper_body_048392" />
+      </label>
+
+      <div class="sample-list-wrap">
+        <div class="list-head">
+          <span>样本列表</span>
+          <span id="list-count">0</span>
+        </div>
+        <div class="sample-list" id="sample-list"></div>
+      </div>
+    </aside>
+
+    <main class="content" id="content">
+      <div class="empty">请从左侧选择一条样本</div>
+    </main>
+  </div>
+
+  <!-- BUILD:inline-samples -->
+  <script src="viewer.js"></script>
+  <!-- BUILD:inline-script -->
+</body>
+</html>

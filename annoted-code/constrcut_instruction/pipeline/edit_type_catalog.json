@@ -1,0 +1,350 @@
+{
+  "version": "edit_type_v2",
+  "default_target_count": 10,
+  "types": {
+    "E01": {
+      "label": "wearing_style x1",
+      "group": "single_dim",
+      "target_count": 10,
+      "recipe": {
+        "wearing_style": {
+          "count": 1,
+          "attributes": ["tucking_style", "sleeve_state", "pants_cuff_state"]
+        }
+      },
+      "fallback": "E04"
+    },
+    "E02": {
+      "label": "fit_silhouette x1",
+      "group": "single_dim",
+      "target_count": 10,
+      "recipe": {
+        "fit_silhouette": {
+          "count": 1,
+          "attributes": ["fit"]
+        }
+      },
+      "fallback": "E04"
+    },
+    "E03": {
+      "label": "local_structure x1",
+      "group": "single_dim",
+      "target_count": 10,
+      "recipe": {
+        "local_structure": {
+          "count": 1,
+          "attributes": [
+            "neckline",
+            "sleeve_length",
+            "sleeve_type",
+            "collar_type",
+            "hem_length",
+            "hem_shape"
+          ]
+        }
+      },
+      "fallback": "E04"
+    },
+    "E04": {
+      "label": "appearance x1 (color)",
+      "group": "single_dim",
+      "target_count": 10,
+      "recipe": {
+        "appearance": {
+          "count": 1,
+          "attributes": ["color"]
+        }
+      },
+      "fallback": "E05"
+    },
+    "E05": {
+      "label": "appearance x1 (pattern)",
+      "group": "single_dim",
+      "target_count": 10,
+      "recipe": {
+        "appearance": {
+          "count": 1,
+          "attributes": ["pattern"]
+        }
+      },
+      "fallback": "E06"
+    },
+    "E06": {
+      "label": "appearance x1 (material_texture)",
+      "group": "single_dim",
+      "target_count": 10,
+      "recipe": {
+        "appearance": {
+          "count": 1,
+          "attributes": ["material_texture"]
+        }
+      },
+      "fallback": "E04"
+    },
+    "E07": {
+      "label": "layering_structure x1 (is_outerwear)",
+      "group": "single_dim",
+      "target_count": 10,
+      "recipe": {
+        "layering_structure": {
+          "count": 1,
+          "attributes": ["is_outerwear"]
+        }
+      },
+      "fallback": "E06"
+    },
+    "E08": {
+      "label": "appearance x1 (embellishment)",
+      "group": "single_dim",
+      "target_count": 10,
+      "recipe": {
+        "appearance": {
+          "count": 1,
+          "attributes": ["embellishment"]
+        }
+      },
+      "fallback": "E04"
+    },
+    "E09": {
+      "label": "appearance x2",
+      "group": "single_dim_multi_attr",
+      "target_count": 10,
+      "recipe": {
+        "appearance": {
+          "count": 2,
+          "attributes": ["color", "pattern", "material_texture"]
+        }
+      },
+      "fallback": "E14"
+    },
+    "E10": {
+      "label": "local_structure x2",
+      "group": "single_dim_multi_attr",
+      "target_count": 10,
+      "recipe": {
+        "local_structure": {
+          "count": 2,
+          "attributes": [
+            "neckline",
+            "sleeve_length",
+            "sleeve_type",
+            "collar_type",
+            "hem_length",
+            "hem_shape"
+          ]
+        }
+      },
+      "fallback": "E14"
+    },
+    "E11": {
+      "label": "wearing_style x1 + fit x1",
+      "group": "mixed",
+      "target_count": 10,
+      "recipe": {
+        "wearing_style": {
+          "count": 1,
+          "attributes": ["tucking_style", "sleeve_state", "pants_cuff_state"]
+        },
+        "fit_silhouette": {
+          "count": 1,
+          "attributes": ["fit"]
+        }
+      },
+      "fallback": "E12"
+    },
+    "E12": {
+      "label": "wearing_style x1 + appearance x1",
+      "group": "mixed",
+      "target_count": 10,
+      "recipe": {
+        "wearing_style": {
+          "count": 1,
+          "attributes": ["tucking_style", "sleeve_state", "pants_cuff_state"]
+        },
+        "appearance": {
+          "count": 1,
+          "attributes": ["color", "pattern", "material_texture"]
+        }
+      },
+      "fallback": "E13"
+    },
+    "E13": {
+      "label": "fit x1 + appearance x1",
+      "group": "mixed",
+      "target_count": 10,
+      "recipe": {
+        "fit_silhouette": {
+          "count": 1,
+          "attributes": ["fit"]
+        },
+        "appearance": {
+          "count": 1,
+          "attributes": ["color", "pattern", "material_texture"]
+        }
+      },
+      "fallback": "E14"
+    },
+    "E14": {
+      "label": "local_structure x1 + appearance x1",
+      "group": "mixed",
+      "target_count": 10,
+      "recipe": {
+        "local_structure": {
+          "count": 1,
+          "attributes": [
+            "neckline",
+            "sleeve_length",
+            "sleeve_type",
+            "collar_type",
+            "hem_length",
+            "hem_shape"
+          ]
+        },
+        "appearance": {
+          "count": 1,
+          "attributes": ["color", "pattern", "material_texture"]
+        }
+      },
+      "fallback": "E13"
+    },
+    "E15": {
+      "label": "local_structure x1 + fit x1",
+      "group": "mixed",
+      "target_count": 10,
+      "recipe": {
+        "local_structure": {
+          "count": 1,
+          "attributes": [
+            "neckline",
+            "sleeve_length",
+            "sleeve_type",
+            "collar_type",
+            "hem_length",
+            "hem_shape"
+          ]
+        },
+        "fit_silhouette": {
+          "count": 1,
+          "attributes": ["fit"]
+        }
+      },
+      "fallback": "E14"
+    },
+    "E16": {
+      "label": "wearing_style x1 + local_structure x1",
+      "group": "mixed",
+      "target_count": 10,
+      "recipe": {
+        "wearing_style": {
+          "count": 1,
+          "attributes": ["tucking_style", "sleeve_state", "pants_cuff_state"]
+        },
+        "local_structure": {
+          "count": 1,
+          "attributes": [
+            "neckline",
+            "sleeve_length",
+            "sleeve_type",
+            "collar_type",
+            "hem_length",
+            "hem_shape"
+          ]
+        }
+      },
+      "fallback": "E14"
+    },
+    "E17": {
+      "label": "fit x1 + local_structure x1",
+      "group": "mixed",
+      "target_count": 10,
+      "recipe": {
+        "fit_silhouette": {
+          "count": 1,
+          "attributes": ["fit"]
+        },
+        "local_structure": {
+          "count": 1,
+          "attributes": [
+            "neckline",
+            "sleeve_length",
+            "sleeve_type",
+            "collar_type",
+            "hem_length",
+            "hem_shape"
+          ]
+        }
+      },
+      "fallback": "E14"
+    },
+    "E18": {
+      "label": "wearing_style x1 + fit x1 + appearance x1",
+      "group": "mixed",
+      "target_count": 10,
+      "recipe": {
+        "wearing_style": {
+          "count": 1,
+          "attributes": ["tucking_style", "sleeve_state", "pants_cuff_state"]
+        },
+        "fit_silhouette": {
+          "count": 1,
+          "attributes": ["fit"]
+        },
+        "appearance": {
+          "count": 1,
+          "attributes": ["color", "pattern", "material_texture"]
+        }
+      },
+      "fallback": "E20"
+    },
+    "E19": {
+      "label": "local_structure x1 + appearance x2",
+      "group": "mixed",
+      "target_count": 10,
+      "recipe": {
+        "local_structure": {
+          "count": 1,
+          "attributes": [
+            "neckline",
+            "sleeve_length",
+            "sleeve_type",
+            "collar_type",
+            "hem_length",
+            "hem_shape"
+          ]
+        },
+        "appearance": {
+          "count": 2,
+          "attributes": ["color", "pattern", "material_texture"]
+        }
+      },
+      "fallback": "E14"
+    },
+    "E20": {
+      "label": "wearing_style x1 + local_structure x1 + appearance x1",
+      "group": "mixed",
+      "target_count": 10,
+      "recipe": {
+        "wearing_style": {
+          "count": 1,
+          "attributes": ["tucking_style", "sleeve_state", "pants_cuff_state"]
+        },
+        "local_structure": {
+          "count": 1,
+          "attributes": [
+            "neckline",
+            "sleeve_length",
+            "sleeve_type",
+            "collar_type",
+            "hem_length",
+            "hem_shape"
+          ]
+        },
+        "appearance": {
+          "count": 1,
+          "attributes": ["color", "pattern", "material_texture"]
+        }
+      },
+      "fallback": "E18"
+    }
+  }
+}

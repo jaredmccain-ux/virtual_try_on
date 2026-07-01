@@ -1,0 +1,258 @@
+================================================================================
+PAIR source_sample_id=upper_body_048453
+model_id=gpt-5.4
+person_image=Datasets/eval_firsttest/person/048453_0.jpg
+garment_image=Datasets/eval_firsttest/garment/048453_1.jpg
+================================================================================
+{
+  "garment_image": {
+    "garment_annotation": {
+      "gender": "female",
+      "where_to_dress": "upper_body",
+      "upper_body_garment": {
+        "category": "tank_top",
+        "local_structure": {
+          "neckline": "v_neck",
+          "sleeve_length": "sleeveless",
+          "sleeve_type": "spaghetti_strap",
+          "collar_type": "not_applicable"
+        },
+        "appearance": {
+          "color": "black",
+          "pattern": "solid",
+          "material_texture": "not_visible",
+          "embellishment": "none"
+        },
+        "layering_structure": {
+          "outer_closure": "not_applicable",
+          "is_outerwear": false
+        }
+      }
+    }
+  }
+}
+
+================================================================================
+PAIR source_sample_id=lower_body_050192
+model_id=gpt-5.4
+person_image=Datasets/eval_firsttest/person/050192_0.jpg
+garment_image=Datasets/eval_firsttest/garment/050192_1.jpg
+================================================================================
+{
+  "garment_image": {
+    "garment_annotation": {
+      "gender": "female",
+      "where_to_dress": "lower_body",
+      "lower_body_garment": {
+        "category": "skirt",
+        "local_structure": {
+          "hem_length": "full-length",
+          "hem_shape": "straight_hem"
+        },
+        "appearance": {
+          "color": "red",
+          "pattern": "abstract",
+          "material_texture": "tweed",
+          "embellishment": "fringe"
+        }
+      }
+    }
+  }
+}
+
+================================================================================
+PAIR source_sample_id=lower_body_050193
+model_id=gpt-5.4
+person_image=Datasets/eval_firsttest/person/050193_0.jpg
+garment_image=Datasets/eval_firsttest/garment/050193_1.jpg
+================================================================================
+{
+  "garment_image": {
+    "garment_annotation": {
+      "gender": "female",
+      "where_to_dress": "lower_body",
+      "lower_body_garment": {
+        "category": "skirt",
+        "local_structure": {
+          "hem_length": "short",
+          "hem_shape": "straight_hem"
+        },
+        "appearance": {
+          "color": "blue",
+          "pattern": "striped",
+          "material_texture": "woven",
+          "embellishment": "buttons"
+        }
+      }
+    }
+  }
+}
+
+================================================================================
+PAIR source_sample_id=lower_body_050209
+model_id=gpt-5.4
+person_image=Datasets/eval_firsttest/person/050209_0.jpg
+garment_image=Datasets/eval_firsttest/garment/050209_1.jpg
+================================================================================
+{
+  "garment_image": {
+    "garment_annotation": {
+      "gender": "female",
+      "where_to_dress": "lower_body",
+      "lower_body_garment": {
+        "category": "pants",
+        "local_structure": {
+          "hem_length": "full-length",
+          "hem_shape": "straight_hem"
+        },
+        "appearance": {
+          "color": "black",
+          "pattern": "solid",
+          "material_texture": "corduroy",
+          "embellishment": "none"
+        }
+      }
+    }
+  }
+}
+
+================================================================================
+PAIR source_sample_id=lower_body_050225
+model_id=gpt-5.4
+person_image=Datasets/eval_firsttest/person/050225_0.jpg
+garment_image=Datasets/eval_firsttest/garment/050225_1.jpg
+================================================================================
+{
+  "garment_image": {
+    "garment_annotation": {
+      "gender": "female",
+      "where_to_dress": "lower_body",
+      "lower_body_garment": {
+        "category": "pants",
+        "local_structure": {
+          "hem_length": "full-length",
+          "hem_shape": "straight_hem"
+        },
+        "appearance": {
+          "color": "black",
+          "pattern": "solid",
+          "material_texture": "smooth",
+          "embellishment": "none"
+        }
+      }
+    }
+  }
+}
+
+================================================================================
+PAIR source_sample_id=lower_body_050226
+model_id=gpt-5.4
+person_image=Datasets/eval_firsttest/person/050226_0.jpg
+garment_image=Datasets/eval_firsttest/garment/050226_1.jpg
+================================================================================
+{
+  "garment_image": {
+    "garment_annotation": {
+      "gender": "female",
+      "where_to_dress": "lower_body",
+      "lower_body_garment": {
+        "category": "skirt",
+        "local_structure": {
+          "hem_length": "full-length",
+          "hem_shape": "straight_hem"
+        },
+        "appearance": {
+          "color": "black",
+          "pattern": "solid",
+          "material_texture": "smooth",
+          "embellishment": "none"
+        }
+      }
+    }
+  }
+}
+
+================================================================================
+PAIR source_sample_id=lower_body_050233
+model_id=gpt-5.4
+person_image=Datasets/eval_firsttest/person/050233_0.jpg
+garment_image=Datasets/eval_firsttest/garment/050233_1.jpg
+================================================================================
+{
+  "garment_image": {
+    "garment_annotation": {
+      "gender": "female",
+      "where_to_dress": "lower_body",
+      "lower_body_garment": {
+        "category": "pants",
+        "local_structure": {
+          "hem_length": "full-length",
+          "hem_shape": "straight_hem"
+        },
+        "appearance": {
+          "color": "black",
+          "pattern": "striped",
+          "material_texture": "smooth",
+          "embellishment": "none"
+        }
+      }
+    }
+  }
+}
+
+================================================================================
+PAIR source_sample_id=lower_body_050234
+model_id=gpt-5.4
+person_image=Datasets/eval_firsttest/person/050234_0.jpg
+garment_image=Datasets/eval_firsttest/garment/050234_1.jpg
+================================================================================
+{
+  "garment_image": {
+    "garment_annotation": {
+      "gender": "female",
+      "where_to_dress": "lower_body",
+      "lower_body_garment": {
+        "category": "skirt",
+        "local_structure": {
+          "hem_length": "full-length",
+          "hem_shape": "straight_hem"
+        },
+        "appearance": {
+          "color": "brown",
+          "pattern": "solid",
+          "material_texture": "knit",
+          "embellishment": "none"
+        }
+      }
+    }
+  }
+}
+
+================================================================================
+PAIR source_sample_id=lower_body_050253
+model_id=gpt-5.4
+person_image=Datasets/eval_firsttest/person/050253_0.jpg
+garment_image=Datasets/eval_firsttest/garment/050253_1.jpg
+================================================================================
+{
+  "garment_image": {
+    "garment_annotation": {
+      "gender": "male",
+      "where_to_dress": "lower_body",
+      "lower_body_garment": {
+        "category": "pants",
+        "local_structure": {
+          "hem_length": "full-length",
+          "hem_shape": "straight_hem"
+        },
+        "appearance": {
+          "color": "black",
+          "pattern": "solid",
+          "material_texture": "smooth",
+          "embellishment": "none"
+        }
+      }
+    }
+  }
+}
+
